@@ -1,40 +1,35 @@
 package card;
 
-
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class GroupOfCards {
+    private int size;
+    private List<Card> cards;
 
-	private int size;
-	private Card cards;
+    public GroupOfCards(int size) {
+        this.size = size;
+        this.cards = new ArrayList<>();
+    }
 
-	/**
-	 * 
-	 * @param size
-	 */
-	public GroupOfCards(int size) {
-		// TODO - implement GroupOfCards.GroupOfCards
-		throw new UnsupportedOperationException();
-	}
+    public int getSize() {
+        return this.size;
+    }
 
-	public int getSize() {
-		return this.size;
-	}
+    public void setSize(int size) {
+        this.size = size;
+    }
 
-	/**
-	 * 
-	 * @param size
-	 */
-	public void setSize(int size) {
-		this.size = size;
-	}
+    public List<Card> getCards() {
+        return this.cards;
+    }
 
-	public Card getCards() {
-		return this.cards;
-	}
+    public void addCard(Card card) {
+        this.cards.add(card);
+    }
 
-	public void shuffle() {
-		// TODO - implement GroupOfCards.shuffle
-		throw new UnsupportedOperationException();
-	}
-
+    public void shuffle() {
+        Collections.shuffle(this.cards);
+    }
 }
