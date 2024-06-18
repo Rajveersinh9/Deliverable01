@@ -1,28 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package card;
 
 /**
- *
- * @author rajvi
+ * Represents a single playing card.
  */
 public class Card {
+    private String suit;
+    private String rank;
 
-    /**
-     * @param args the command line arguments
-     */
-    
-    public String toString() {
-		// TODO - implement Card.toString
-		throw new UnsupportedOperationException();
-	} 
-    
-    public static void main(String[] args) {
-        // TODO code application logic here
-        
-        
+    public Card(String suit, String rank) {
+        this.suit = suit;
+        this.rank = rank;
     }
-    
+
+    @Override
+    public String toString() {
+        return rank + " of " + suit;
+    }
 }
