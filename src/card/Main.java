@@ -2,14 +2,15 @@ package card;
 
 public class Main {
     public static void main(String[] args) {
-        Game game = new Game("Go Fish", 4);
-
-        // Display the cards in the deck
-        for (Card card : game.getDeck().getCards()) {
-            System.out.println(card);
+        System.out.println("Welcome to the Card Game!");
+        int numOfPlayers = InputHandler.getIntInput("Enter the number of players (2 or 4): ");
+        while (numOfPlayers != 2 && numOfPlayers != 4) {
+            numOfPlayers = InputHandler.getIntInput("Invalid input. Please enter 2 or 4: ");
         }
 
-        // Play the game
+        Game game = new Game("Go Fish");
+        game.initializeGame(numOfPlayers);
+
         game.play();
     }
 }

@@ -1,44 +1,31 @@
 package card;
 
-import java.util.ArrayList;
-import java.util.List;
+public class Game extends AbstractGame {
 
-public class Game {
-    private final String name;
-    private final List<Player> players;
-    private final Deck deck;
-    private int currentPlayerIndex;
-
-    public Game(String name, int numOfPlayers) {
-        this.name = name;
-        this.players = new ArrayList<>();
-        for (int i = 0; i < numOfPlayers; i++) {
-            String playerName = InputHandler.getStringInput("Enter name for Player " + (i + 1) + ": ");
-            this.players.add(new Player(playerName));
-        }
-        this.deck = Deck.getInstance();
-        this.currentPlayerIndex = 0;
-        dealCards();
+    public Game(String name) {
+        super(name);
     }
 
-    public void play() {
-        System.out.println("Starting the game: " + name);
-        int maxTurns = 50; // Set a maximum number of turns
-        int turns = 0;
-
-        while (!checkForWinner() && !deck.getCards().isEmpty() && turns < maxTurns) {
-            Player currentPlayer = players.get(currentPlayerIndex);
-            currentPlayer.playTurn(this);
-            currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
-            turns++;
-        }
-        declareWinner();
+    @Override
+    protected AbstractPlayer createPlayer(String name) {
+        return new Player(name);
     }
 
-    public void declareWinner() {
-        Player winner = null;
+    @Override
+    protected boolean checkForWinner() {
+        for (AbstractPlayer player : players) {
+            if (player.getNumOfSets() >= 4) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    protected void declareWinner() {
+        AbstractPlayer winner = null;
         int maxSets = 0;
-        for (Player player : players) {
+        for (AbstractPlayer player : players) {
             int playerSets = player.getNumOfSets();
             if (playerSets > maxSets) {
                 maxSets = playerSets;
@@ -50,31 +37,5 @@ public class Game {
         } else {
             System.out.println("No winner. The deck is empty.");
         }
-    }
-
-    private void dealCards() {
-        deck.shuffle();
-        for (int i = 0; i < 5; i++) {
-            for (Player player : players) {
-                player.addCardToHand(deck.drawCard());
-            }
-        }
-    }
-
-    private boolean checkForWinner() {
-        for (Player player : players) {
-            if (player.getNumOfSets() >= 4) {  // Example winning condition
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public Deck getDeck() {
-        return deck;
-    }
-
-    public List<Player> getPlayers() {
-        return players;
     }
 }

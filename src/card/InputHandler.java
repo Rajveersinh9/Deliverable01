@@ -3,11 +3,11 @@ package card;
 import java.util.Scanner;
 
 public class InputHandler {
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static String getStringInput(String prompt) {
         System.out.print(prompt);
-        return scanner.nextLine().trim();
+        return scanner.nextLine().trim().toUpperCase();
     }
 
     public static int getIntInput(String prompt) {
@@ -15,10 +15,10 @@ public class InputHandler {
         while (!scanner.hasNextInt()) {
             System.out.println("Invalid input. Please enter a number.");
             System.out.print(prompt);
-            scanner.next(); // Clear the invalid input
+            scanner.next();
         }
         int input = scanner.nextInt();
-        scanner.nextLine(); // Clear the buffer
+        scanner.nextLine(); // consume the newline character
         return input;
     }
 }

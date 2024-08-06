@@ -10,7 +10,14 @@ public class Deck {
 
     private Deck() {
         cards = new ArrayList<>();
-        initializeDeck();
+        String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
+        String[] ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
+
+        for (String suit : suits) {
+            for (String rank : ranks) {
+                cards.add(new Card(rank, suit));
+            }
+        }
     }
 
     public static Deck getInstance() {
@@ -18,18 +25,6 @@ public class Deck {
             instance = new Deck();
         }
         return instance;
-    }
-
-    private void initializeDeck() {
-        String[] suits = {"Hearts", "Diamonds", "Clubs", "Spades"};
-        String[] ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
-
-        for (String suit : suits) {
-            for (String rank : ranks) {
-                cards.add(new Card(suit, rank));
-            }
-        }
-        shuffle();
     }
 
     public List<Card> getCards() {
@@ -41,9 +36,9 @@ public class Deck {
     }
 
     public Card drawCard() {
-        if (!cards.isEmpty()) {
-            return cards.remove(cards.size() - 1);
+        if (cards.isEmpty()) {
+            return null;
         }
-        return null;
+        return cards.remove(cards.size() - 1);
     }
 }
